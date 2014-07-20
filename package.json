@@ -1,8 +1,9 @@
 {
-    "name": "application-name",
+    "name": "kumoplay-membership",
     "version": "0.0.1",
+	"author": "HyveMynd",
     "description": "A membership system patterened after devise",
-    "git": "git@bitbucket.org:HyveMynd/kumoplay-membership.git",
+    "git": "git@github.com:HyveMynd/kumoplay-membership.git",
     "devDependencies": {
         "grunt": "^0.4.5",
         "grunt-contrib-jshint": "^0.10.0",
