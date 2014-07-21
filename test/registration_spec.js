@@ -1,5 +1,5 @@
 var assert = require("assert");
-var Registration = require('../.././registration');
+var Registration = require('../lib/registration');
 
 describe("Registering", function () {
 	
