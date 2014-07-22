@@ -1,17 +1,21 @@
 {
-    "name": "kumoplay-membership",
-    "version": "0.0.1",
-	"author": "HyveMynd",
-    "description": "A membership system patterened after devise",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:HyveMynd/kumoplay-membership.git"
-    },
-    "devDependencies": {
-        "grunt": "^0.4.5",
-        "grunt-contrib-jshint": "^0.10.0",
-        "grunt-contrib-watch": "^0.6.1",
-        "mocha": "^1.20.1",
-        "should": "^4.0.4"
-    }
+  "name": "kumoplay-membership",
+  "version": "0.0.1",
+  "author": "HyveMynd",
+  "description": "A membership system patterened after devise",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HyveMynd/kumoplay-membership.git"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "mocha": "^1.20.1",
+    "should": "^4.0.4"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "rethinkdb": "^1.13.0-2"
+  }
 }
