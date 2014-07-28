@@ -4,6 +4,7 @@
 var r = require('rethinkdb');
 var assert = require('assert');
 var async = require('async');
+var db = require('revision');
 
 module.exports = function(grunt){
 
@@ -15,38 +16,10 @@ module.exports = function(grunt){
 
 	grunt.registerTask("installDb", function(){
 		var done = this.async();
-        r.connect({host: 'localhost', port: '28015'}, function(err, conn){
-			if (err || !conn) {
-				throw err;
-			}
-			r.dbCreate('membership').run(conn, function (err) {
-				if (err){
-					throw err;
-				}
-				conn.use('membership');
-				async.series([
-					function (cb) {
-						r.tableCreate('users').run(conn, function () {
-							cb();
-						});
-					},
-					function (cb) {
-						r.tableCreate('logs').run(conn, function () {
-							cb();
-						});
-					},
-					function (cb) {
-						r.tableCreate('sessions').run(conn, function () {
-							cb();
-						});
-					}
-				], function (err) {
-					if (err){
-						throw err;
-					}
-					done();
-				});
-			});
+        var config = { db: 'membership'}; //defaults to localhost:28015
+        db.install(config, ['users', 'logs', 'sessions'], function (err, result) {
+            assert.ok(err === null, err);
+            done();
         });
 	});
 

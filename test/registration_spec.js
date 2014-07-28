@@ -1,12 +1,23 @@
 var assert = require("assert");
 var Registration = require('../lib/registration');
+var db = require('revision');
 
 describe("Registering", function () {
+    var reg = {};
+    before(function (done) {
+       db.connect({db:"membership"}, function (err, db) {
+           reg = new Registration(db);
+           done();
+       });
+    });
 	
 	describe("a valid application", function () {
 		var regResult = {};
-		before(function(){
-			regResult = Registration.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a"});
+		before(function(done){
+			regResult = reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a"}, function (err, result) {
+                regResult = result;
+                done();
+            });
 		});
 		it("is successful", function(){
 			regResult.success.should.equal(true);
