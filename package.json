@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "async": "^0.9.0",
+    "bcrypt-nodejs": "0.0.3",
+    "bunyan": "^1.0.1",
     "rethinkdb": "^1.13.0-2",
-      "revision": "HyveMynd/revision"
+    "revision": "0.0.11"
   }
 }

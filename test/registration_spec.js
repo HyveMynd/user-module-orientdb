@@ -14,17 +14,28 @@ describe("Registering", function () {
 	describe("a valid application", function () {
 		var regResult = {};
 		before(function(done){
-			regResult = reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a"}, function (err, result) {
-                regResult = result;
-                done();
+            db.users.destroyAll(function (err) {
+                regResult = reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a"}, function (err, result) {
+                    regResult = result;
+                    done();
+                });
             });
 		});
 		it("is successful", function(){
 			regResult.success.should.equal(true);
 		});
-		it("creates a user");
-		it("creates a log entry");
-		it("sets the user status to approved");
+		it("creates a user", function () {
+            regResult.user.should.be.defined;
+        });
+		it("sets the user status to approved", function () {
+            regResult.user.status.should.equal('approved');
+        });
+        it("created a welcome message", function () {
+            regResult.message.should.be.defined;
+        });
+        it('should increment the sign in count', function () {
+            regResult.user.signInCount.should.equal(1);
+        });
 	});
 
 	describe("empty of null password", function(){
