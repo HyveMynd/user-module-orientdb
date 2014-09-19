@@ -38,18 +38,53 @@ describe("Registering", function () {
         });
 	});
 
-	describe("empty of null password", function(){
-		it("is not successful");
-		it("tells the user that a password is required");
+	describe("empty or null password", function(){
+        var regResult = {};
+        before(function (done) {
+            reg.applyForMembership({email : "asd@dsa.com", password: null, confirm: "a"}, function (err, result) {
+                regResult = result;
+                done();
+            });
+        });
+		it("is not successful", function () {
+            regResult.success.should.be.false;
+        });
+		it("tells the user that a password is required", function () {
+            regResult.message.should.equal("Email and password are required");
+        });
 	});
 
 	describe("password and confirm mismatch", function(){
-		it("is not successful");
-		it("tells the user that the password is incorrect");
+        var regResult = {};
+        before(function (done) {
+            reg.applyForMembership({email : "asd@dsa.com", password: "b", confirm: "a"}, function (err, result) {
+                regResult = result;
+                done();
+            });
+        });
+		it("is not successful", function () {
+            regResult.success.should.be.false;
+        });
+		it("tells the user that the password is incorrect", function () {
+            regResult.message.should.equal('Passwords do not match');
+        });
 	});
 	
 	describe("email already exists", function(){
-		it("is not successful");
-		it("tells the user that email exists");
+        var regResult = {};
+        before(function (done) {
+            reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a"}, function (err, result) {
+                reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a"}, function (err, result) {
+                    regResult = result;
+                    done();
+                });
+            });
+        });
+		it("is not successful", function () {
+            regResult.success.should.be.false;
+        });
+		it("tells the user that email exists", function () {
+            regResult.message.should.equal('This email already exists');
+        });
 	});
 });
