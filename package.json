@@ -1,6 +1,6 @@
 {
   "name": "kumoplay-membership",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "HyveMynd",
   "description": "A membership system patterened after devise",
   "repository": {
