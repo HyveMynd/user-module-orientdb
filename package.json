@@ -19,6 +19,6 @@
     "bcrypt-nodejs": "0.0.3",
     "bunyan": "^1.0.1",
     "rethinkdb": "^1.13.0-2",
-    "revision": "0.0.11"
+    "revision": "HyveMynd/revision"
   }
 }
