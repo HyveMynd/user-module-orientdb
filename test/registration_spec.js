@@ -36,6 +36,9 @@ describe("Registering", function () {
         it('should increment the sign in count', function () {
             regResult.user.signInCount.should.equal(1);
         });
+        it("should store a hashed password", function () {
+            regResult.user.hashedPassword.should.be.defined;
+        });
 	});
 
 	describe("empty or null password", function(){
