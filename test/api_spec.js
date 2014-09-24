@@ -22,8 +22,8 @@ describe("Main Api", function(){
     describe("authentication", function(){
         var newUser = {};
         before(function (done) {
-            memb.register("test@test.com", "password", "password", function (err, result) {
-                assert.ok(result.success, "Cant register");
+            memb.register("test@test.com", "password", "password", "asd", "dsa", function (err, result) {
+                assert.ok(result.success, result.message);
                 newUser = result.user;
                 done();
             });

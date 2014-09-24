@@ -35,7 +35,7 @@ var Membership = function(dbName) {
         });
     };
     
-    self.register = function (email, password, confirm, next) {
+    self.register = function (email, password, confirm, firstName, lastName, next) {
         db.connect({db: dbName}, function (err, db) {
             assert.ok(err === null, err);
             var reg = new Registration(db);
@@ -47,7 +47,13 @@ var Membership = function(dbName) {
                 self.emit('not-registered', app);
             });
 
-            reg.applyForMembership({email: email, password: password, confirm: confirm}, next);
+            reg.applyForMembership({
+                email: email,
+                password: password,
+                confirm: confirm,
+                firstName: firstName,
+                lastName: lastName
+            }, next);
         });
     };
 

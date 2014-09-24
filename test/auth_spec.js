@@ -24,7 +24,7 @@ describe('Authentication', function () {
         var authResult = {};
         before(function(done){
             db.users.destroyAll(function (err) {
-                reg.applyForMembership({email : "test@test.com", password: "password", confirm: "password"}, function (err, regResult) {
+                reg.applyForMembership({email : "test@test.com", password: "password", confirm: "password", firstName: "asd", lastName: "dsa"}, function (err, regResult) {
                     assert.ok(regResult.success);
                     auth.authenticate({email: 'test@test.com', password: 'password'}, function (err, result) {
                         assert.ok(err === null, err);
@@ -55,7 +55,7 @@ describe('Authentication', function () {
         var authResult = {};
         before(function(done){
             db.users.destroyAll(function (err) {
-                reg.applyForMembership({email : 'test@test.com', password: "password", confirm: "password"}, function (err, regResult) {
+                reg.applyForMembership({email : "test@test.com", password: "password", confirm: "password", firstName: "asd", lastName: "dsa"}, function (err, regResult) {
                     assert.ok(regResult.success);
                     auth.authenticate({email: null, password: 'password'}, function (err, result) {
                         assert.ok(err === null, err);
@@ -79,7 +79,7 @@ describe('Authentication', function () {
         var authResult = {};
         before(function(done){
             db.users.destroyAll(function (err) {
-                reg.applyForMembership({email : 'test@test.com', password: "password", confirm: "password"}, function (err, regResult) {
+                reg.applyForMembership({email : "test@test.com", password: "password", confirm: "password", firstName: "asd", lastName: "dsa"}, function (err, regResult) {
                     assert.ok(regResult.success);
                     auth.authenticate({email: 'test@test.com', password: null}, function (err, result) {
                         assert.ok(err === null, err);
@@ -103,7 +103,7 @@ describe('Authentication', function () {
         var authResult = {};
         before(function(done){
             db.users.destroyAll(function (err) {
-                reg.applyForMembership({email : 'test@test.com', password: "password", confirm: "password"}, function (err, regResult) {
+                reg.applyForMembership({email : "test@test.com", password: "password", confirm: "password", firstName: "asd", lastName: "dsa"}, function (err, regResult) {
                     assert.ok(regResult.success);
                     auth.authenticate({email: 'test@test.com', password: 'word'}, function (err, result) {
                         assert.ok(err === null, err);
@@ -125,7 +125,7 @@ describe('Authentication', function () {
         var authResult = {};
         before(function(done){
             db.users.destroyAll(function (err) {
-                reg.applyForMembership({email : 'test@test.com', password: "password", confirm: "password"}, function (err, regResult) {
+                reg.applyForMembership({email : "test@test.com", password: "password", confirm: "password", firstName: "asd", lastName: "dsa"}, function (err, regResult) {
                     assert.ok(regResult.success);
                     auth.authenticate({email: 'asd@asd.com', password: 'password'}, function (err, result) {
                         assert.ok(err === null, err);

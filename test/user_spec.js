@@ -7,12 +7,18 @@ describe("User", function () {
 	describe("defaults", function () {
 		var user = {};
 		before(function(){
-			user = new User({email : "asd@dsa.com"});
+			user = new User({email : "asd@dsa.com", firstName: 'asd', lastName: 'dsa'});
 		});
 
 		it("email is asd@dsa.com", function(){
 			user.email.should.equal("asd@dsa.com");
 		});
+        it("first name is asd", function () {
+            user.firstName.should.equal('asd');
+        });
+        it("last name is dsa", function () {
+            user.lastName.should.equal('dsa');
+        });
 		it("has an authentication token", function(){
 			user.authenticationToken.should.be.defined;
 		});

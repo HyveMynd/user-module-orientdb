@@ -5,12 +5,14 @@
 var assert = require('assert');
 
 var User = function(args){
-	assert.ok(args.email, "Email is required");
+	assert.ok(args.email && args.firstName && args.lastName, "Email, first, and last name is required");
 	var user = {};
 
     if (args.id){
         user.id = args.id;
     }
+    user.firstName = args.firstName;
+    user.lastName = args.lastName;
 	user.email = args.email;
 	user.createdAt = args.createdAt || new Date();
 	user.status = args.status || "pending";
@@ -19,8 +21,6 @@ var User = function(args){
 	user.currentLoginAt = args.currentLoginAt || new Date();
 	user.authenticationToken = args.authenticationToken || "ASDAS";
     user.hashedPassword = args.hashedPassword || null;
-    user.firstName = args.firstName || null;
-    user.lastName = args.lastName || null;
 
 	return user;
 };
