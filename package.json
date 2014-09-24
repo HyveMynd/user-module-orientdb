@@ -1,11 +1,11 @@
 {
-  "name": "kumoplay-membership",
-  "version": "0.0.2",
+  "name": "user-module",
+  "version": "0.0.3",
   "author": "HyveMynd",
   "description": "A membership system patterened after devise",
   "repository": {
     "type": "git",
-    "url": "git@github.com:HyveMynd/kumoplay-membership.git"
+    "url": "git@github.com:HyveMynd/user-module.git"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
