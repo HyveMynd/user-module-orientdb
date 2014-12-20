@@ -14,7 +14,7 @@ describe("Registering", function () {
 	describe("a valid application", function () {
 		var regResult = {};
 		before(function(done){
-            db.users.destroyAll(function (err) {
+            db.registrations.destroyAll(function (err) {
                 regResult = reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
                     regResult = result;
                     done();
@@ -24,20 +24,17 @@ describe("Registering", function () {
 		it("is successful", function(){
 			regResult.success.should.equal(true);
 		});
-		it("creates a user", function () {
-            regResult.user.should.be.defined;
+		it("creates a registration application", function () {
+            regResult.regApp.should.be.defined;
         });
-		it("sets the user status to approved", function () {
-            regResult.user.status.should.equal('approved');
-        });
-        it("created a welcome message", function () {
+        it("created a message", function () {
             regResult.message.should.be.defined;
         });
-        it('should increment the sign in count', function () {
-            regResult.user.signInCount.should.equal(1);
+        it('has an expiration', function () {
+            regResult.regApp.expiration.should.be.defined;
         });
-        it("should store a hashed password", function () {
-            regResult.user.hashedPassword.should.be.defined;
+        it('has a token', function () {
+            regResult.regApp.token.should.be.defined;
         });
 	});
 
@@ -76,10 +73,12 @@ describe("Registering", function () {
 	describe("email already exists", function(){
         var regResult = {};
         before(function (done) {
-            reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
+            db.registrations.destroyAll(function (err) {
                 reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
-                    regResult = result;
-                    done();
+                    reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
+                        regResult = result;
+                        done();
+                    });
                 });
             });
         });

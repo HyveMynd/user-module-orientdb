@@ -17,7 +17,7 @@ module.exports = function(grunt){
 	grunt.registerTask("installDb", function(){
 		var done = this.async();
         var config = { db: 'membership'}; //defaults to localhost:28015
-        db.install(config, ['users', 'logs', 'sessions'], function (err, result) {
+        db.install(config, ['users', 'logs', 'sessions', 'registrations'], function (err, result) {
             assert.ok(err === null, err);
             done();
         });

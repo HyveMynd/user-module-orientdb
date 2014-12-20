@@ -10,7 +10,7 @@ var Application = function(args){
     app.lastName = args.lastName;
 	app.status = "pending";
 	app.message = null;
-    app.user = null;
+    app.regApp = null;
 
 	app.isValid = function(){
 		return app.status === "valid";
