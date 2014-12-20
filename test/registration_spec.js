@@ -15,7 +15,7 @@ describe("Registering", function () {
 		var regResult = {};
 		before(function(done){
             db.registrations.destroyAll(function (err) {
-                regResult = reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
+                reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
                     regResult = result;
                     done();
                 });
