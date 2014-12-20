@@ -11,6 +11,7 @@ var Application = function(args){
 	app.status = "pending";
 	app.message = null;
     app.regApp = null;
+	app.user = null;
 
 	app.isValid = function(){
 		return app.status === "valid";

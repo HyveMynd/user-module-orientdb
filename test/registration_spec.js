@@ -7,10 +7,12 @@ describe("Registering", function () {
     before(function (done) {
        db.connect({db:"membership"}, function (err, db) {
            reg = new Registration(db);
-           done();
+           db.users.destroyAll(function (err, result) {
+               done();
+           });
        });
     });
-	
+
 	describe("a valid application", function () {
 		var regResult = {};
 		before(function(done){
@@ -69,7 +71,7 @@ describe("Registering", function () {
             regResult.message.should.equal('Passwords do not match');
         });
 	});
-	
+
 	describe("email already exists", function(){
         var regResult = {};
         before(function (done) {
