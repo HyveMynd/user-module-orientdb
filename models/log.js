@@ -4,63 +4,24 @@
 var assert = require('assert');
 var bunyan = require('bunyan');
 var utils = require('util');
+var LogRepo = require('../lib/LogRepository')('membership');
+var debug = require('debug');
 
-var LogConfig = function (args) {
-    assert.ok(args.subject && args.db, "Database and subject must be defined");
-    var bunyanLogger = bunyan.createLogger({name: 'kumoplay-membership'});
+var LogConfig = function (subject) {
+    assert.ok(subject, "Subject must be defined");
     var self = this;
-    var db = args.db;
     var log = {};
-    log.subject = args.subject;
+    log.subject = subject;
     log.timeStamp = Date.now();
 
     var saveLogToDb = function (text) {
         log.msg = text;
-        db.logs.save(log, function (err) {
-            if (err !== null){
-                bunyanLogger.error(err, "Could not save log");
-            }
-        });
+        LogRepo.create(log).done();
     };
 
-    self.fatal = function (msg, objs) {
-//        bunyanLogger.fatal(msg, objs);
+    self.log = function (msg, objs) {
         var logText = utils.format(msg, objs);
         saveLogToDb(logText);
-    };
-
-    self.error = function (msg, objs) {
-//        bunyanLogger.error(msg, objs);
-        var logText = utils.format(msg, objs);
-        saveLogToDb(logText);
-    };
-
-    self.warn = function (msg, objs) {
-//        bunyanLogger.warn(msg, objs);
-        var logText = utils.format(msg, objs);
-        saveLogToDb(logText);
-    };
-
-    self.info = function (msg, objs) {
-//        bunyanLogger.info(msg, objs);
-        var logText = utils.format(msg, objs);
-        saveLogToDb(logText);
-    };
-
-    self.debug = function (msg, objs) {
-//        bunyanLogger.debug(msg, objs);
-        var logText = utils.format(msg, objs);
-        saveLogToDb(logText);
-    };
-
-    self.trace = function (msg, objs) {
-//        bunyanLogger.trace(msg, objs);
-        var logText = utils.format(msg, objs);
-        saveLogToDb(logText);
-    };
-
-    self.getLogger = function () {
-        return bunyanLogger;
     };
 
     return self;

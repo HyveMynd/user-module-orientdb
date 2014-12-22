@@ -1,26 +1,23 @@
 var assert = require("assert");
 var Registration = require('../lib/registration');
-var db = require('revision');
+var RegRepo = require('../lib/RegistrationRepository');
+var UserRepo = require('../lib/UserRepository');
 
 describe("Registering", function () {
-    var reg = {};
+    var reg = new Registration(UserRepo, RegRepo);
+    var regRepo = new RegRepo();
     before(function (done) {
-       db.connect({db:"membership"}, function (err, db) {
-           reg = new Registration(db);
-           db.users.destroyAll(function (err, result) {
-               done();
-           });
-       });
+        regRepo.clear().then(function () {
+            done();
+        }).done();
     });
 
 	describe("a valid application", function () {
 		var regResult = {};
 		before(function(done){
-            db.registrations.destroyAll(function (err) {
-                reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
-                    regResult = result;
-                    done();
-                });
+            reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
+                regResult = result;
+                done();
             });
 		});
 		it("is successful", function(){
@@ -75,7 +72,7 @@ describe("Registering", function () {
 	describe("email already exists", function(){
         var regResult = {};
         before(function (done) {
-            db.registrations.destroyAll(function (err) {
+            regRepo.clear().then(function () {
                 reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
                     reg.applyForMembership({email : "asd@dsa.com", password: "a", confirm: "a", firstName: 'asd', lastName: 'dsa'}, function (err, result) {
                         regResult = result;
