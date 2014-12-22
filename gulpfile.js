@@ -24,13 +24,10 @@ gulp.task('installDb', function (done) {
 
         Promise.all(promises).then(function () {
             done();
-            process.exit(0);
         }).error(function (e) {
             done(e);
-            process.exit(1);
         });
     }).error(function (e) {
         done(e);
-        process.exit(1);
     });
 });

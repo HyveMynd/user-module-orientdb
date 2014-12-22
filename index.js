@@ -34,7 +34,7 @@ var Membership = function(dbName) {
             auth.authenticate({email: email, password: password}, next);
         });
     };
-    
+
     self.register = function (email, password, confirm, firstName, lastName, next) {
         db.connect({db: dbName}, function (err, db) {
             assert.ok(err === null, err);

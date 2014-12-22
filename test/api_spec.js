@@ -1,7 +1,6 @@
 ///**
 // * Created by Andres Monroy (HyveMynd) on 9/19/14.
 // */
-//var db = require('revision');
 //var Membership = require('../index.js');
 //var assert = require('assert');
 //

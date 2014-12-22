@@ -2,7 +2,6 @@
 // * Created by Andres Monroy (HyveMynd) on 9/19/14.
 // */
 //var assert = require("assert");
-//var db = require('revision');
 //var Registration = require('../lib/registration');
 //var Auth = require('../lib/authentication');
 //var should = require('should');

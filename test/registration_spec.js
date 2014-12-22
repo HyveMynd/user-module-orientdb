@@ -1,14 +1,17 @@
 var assert = require("assert");
 var Registration = require('../lib/registration');
-var RegRepo = require('../lib/RegistrationRepository');
-var UserRepo = require('../lib/UserRepository');
+var strategy = require('../lib/OrientDbStrategy')('membership');
+var regRepo = require('../lib/RegistrationRepository')(strategy);
+var userRepo = require('../lib/UserRepository')(strategy);
+var should = require('should');
 
 describe("Registering", function () {
-    var reg = new Registration(UserRepo, RegRepo);
-    var regRepo = new RegRepo();
+    var reg = new Registration(userRepo, regRepo);
     before(function (done) {
         regRepo.clear().then(function () {
-            done();
+            userRepo.clear().then(function () {
+                done();
+            }).done();
         }).done();
     });
 
@@ -62,7 +65,7 @@ describe("Registering", function () {
             });
         });
 		it("is not successful", function () {
-            regResult.success.should.be.false;
+            regResult.success.should.equal(false);
         });
 		it("tells the user that the password is incorrect", function () {
             regResult.message.should.equal('Passwords do not match');
@@ -82,7 +85,7 @@ describe("Registering", function () {
             });
         });
 		it("is not successful", function () {
-            regResult.success.should.be.false;
+            regResult.success.should.equal(false);
         });
 		it("tells the user that email exists", function () {
             regResult.message.should.equal('This email already exists');
@@ -98,7 +101,7 @@ describe("Registering", function () {
             });
         });
         it("is not successful", function () {
-            regResult.success.should.be.false;
+            regResult.success.should.equal(false);
         });
         it("tells the user that they must include a first and last name", function () {
             regResult.message.should.equal('Must include a first and last name');

@@ -4,27 +4,27 @@
 var assert = require('assert');
 var bunyan = require('bunyan');
 var utils = require('util');
-var LogRepo = require('../lib/LogRepository')('membership');
+var strategy = require('../lib/OrientDbStrategy');
 var debug = require('debug');
 
-var LogConfig = function (subject) {
+var LogConfig = function (subject, strategy) {
     assert.ok(subject, "Subject must be defined");
-    var self = this;
-    var log = {};
-    log.subject = subject;
-    log.timeStamp = Date.now();
+    var LogRepo = require('../lib/LogRepository')(strategy);
+    var logConfig = {};
+    logConfig.subject = subject;
+    logConfig.timeStamp = Date.now();
 
     var saveLogToDb = function (text) {
-        log.msg = text;
-        LogRepo.create(log).done();
+        logConfig.msg = text;
+        LogRepo.create(logConfig).done();
     };
 
-    self.log = function (msg, objs) {
+    logConfig.log = function (msg, objs) {
         var logText = utils.format(msg, objs);
         saveLogToDb(logText);
     };
 
-    return self;
+    return logConfig;
 };
 
 module.exports = LogConfig;
