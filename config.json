@@ -4,5 +4,11 @@
   "password": "rtriotinto",
   "body": "Please verify you email address by following the link below. The link will expire in 2 hours.\n\n",
   "link": "http://localhost:3000/verify?tk=",
-  "subject": "MobileTrack Email Verification"
+  "subject": "MobileTrack Email Verification",
+  "server": {
+    "host": "localhost",
+    "port": "2424",
+    "username": "root",
+    "password": "password"
+  }
 }
