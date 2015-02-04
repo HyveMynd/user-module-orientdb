@@ -17,7 +17,7 @@ gulp.task('installDb', function (done) {
         type: 'document',
         storage: 'plocal'
     }).then(function (db) {
-        var classes = ['User', 'Log', 'Registration'];
+        var classes = ['User', 'Log', 'Session'];
         var promises = classes.map(function (name) {
             db.class.create(name);
         });

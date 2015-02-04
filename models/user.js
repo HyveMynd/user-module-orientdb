@@ -9,8 +9,8 @@ var User = function(args){
 	assert.ok(args.email && args.firstName && args.lastName, "Email, first, and last name is required");
 	var user = {};
 
-    if (args.id){
-        user.id = args.id;
+    if (args['@rid']){
+        user['@rid'] = args['@rid'];
     }
     user.firstName = args.firstName;
     user.lastName = args.lastName;
@@ -22,6 +22,7 @@ var User = function(args){
 	user.currentLoginAt = args.currentLoginAt || new Date();
 	user.authenticationToken = args.authenticationToken || hat();
     user.hashedPassword = args.hashedPassword || null;
+    user.verificationToken = args.verificationToken || null;
 
 	return user;
 };
