@@ -154,4 +154,33 @@ describe("Registering", function () {
             user.verificationToken.should.not.equal(null)
         });
     });
+
+    describe("send a verification email", function(){
+        var user = {};
+
+        before(function(done){
+            userRepo.clear().then(function () {
+                reg.register({
+                    email: "asd@dsa.com",
+                    password: "a",
+                    confirm: "a",
+                    firstName: 'asd',
+                    lastName: 'dsa'
+                }).then(function (result) {
+                    reg.sendVerificationEmail(result.email, transporter, mailOptions).then(function (result) {
+                        user = result;
+                        done();
+                    }).done();
+                }).done();
+            });
+        });
+
+        it("should be successful", function () {
+            user.should.be.defined;
+        });
+        it("saves the verification token", function () {
+            user.verificationToken.should.not.equal(null)
+        });
+    });
+
 });
