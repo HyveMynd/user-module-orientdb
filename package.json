@@ -13,7 +13,6 @@
     "should": "^4.0.4"
   },
   "dependencies": {
-    "async": "^0.9.0",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.9.6",
     "bunyan": "^1.0.1",
