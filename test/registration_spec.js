@@ -8,19 +8,6 @@ var nodemailer = require('nodemailer');
 describe("Registering", function () {
     var reg = new Registration(userRepo);
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth:{
-            user: 'pxtestacct@gmail.com',
-            pass: 'powpowbang1'
-        }
-    });
-
-    var mailOptions = {
-        from: 'pxtestacct@gmail.com',
-        subject: 'Mail Verification'
-    };
-
     before(function (done) {
         userRepo.clear().then(function () {
             done();
