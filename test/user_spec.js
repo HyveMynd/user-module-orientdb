@@ -19,9 +19,6 @@ describe("User", function () {
         it("last name is dsa", function () {
             user.lastName.should.equal('dsa');
         });
-		it("has an authentication token", function(){
-			user.authenticationToken.should.be.defined;
-		});
 		it("has a pending status", function(){
 			user.status.should.equal("pending");
 		});

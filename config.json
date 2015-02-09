@@ -1,11 +1,13 @@
 {
-  "service": "gmail",
-  "email": "rttracktest@gmail.com",
-  "password": "rtriotinto",
-  "body": "Please verify you email address by following the link below. The link will expire in 2 hours.\n\n",
-  "link": "http://localhost:3000/verify?tk=",
-  "subject": "MobileTrack Email Verification",
-  "server": {
+  "email":{
+    "service": "gmail",
+    "email": "pxdevacct@gmail.com",
+    "password": "powpowbang1",
+    "html": "<b>Please verify you email address by following the link below. The link will expire in 2 hours.</b><br/><br/><a href>Click Here</a>",
+    "link": "http://localhost:3000/verify?tk=",
+    "subject": "Email Verification"
+  },
+  "database": {
     "host": "localhost",
     "port": "2424",
     "username": "root",

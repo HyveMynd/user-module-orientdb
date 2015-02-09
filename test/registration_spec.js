@@ -3,7 +3,6 @@ var Registration = require('../lib/registration');
 var strategy = require('../lib/OrientDbStrategy')('membership');
 var userRepo = require('../lib/UserRepository')(strategy);
 var should = require('should');
-var nodemailer = require('nodemailer');
 
 describe("Registering", function () {
     var reg = new Registration(userRepo);

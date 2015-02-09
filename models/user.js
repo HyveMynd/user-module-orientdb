@@ -20,7 +20,7 @@ var User = function(args){
 	user.signInCount = args.signInCount || 0;
 	user.lastLoginAt = args.lastLoginAt || new Date();
 	user.currentLoginAt = args.currentLoginAt || new Date();
-	user.authenticationToken = args.authenticationToken || hat();
+	user.authenticationToken = args.authenticationToken || null;
     user.hashedPassword = args.hashedPassword || null;
     user.verificationToken = args.verificationToken || null;
 
