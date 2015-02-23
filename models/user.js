@@ -23,6 +23,7 @@ var User = function(args){
 	user.authenticationToken = args.authenticationToken || null;
     user.hashedPassword = args.hashedPassword || null;
     user.verificationToken = args.verificationToken || null;
+    user.verificationTokenDate = args.verificationTokenDate || null;
 
 	return user;
 };
