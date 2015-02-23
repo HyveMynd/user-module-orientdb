@@ -5,7 +5,7 @@ var assert = require("assert");
 var Registration = require('../lib/registration');
 var Auth = require('../lib/authentication');
 var should = require('should');
-var strategy = require('../lib/OrientDbStrategy')('membership');
+var strategy = require('../strategies/OrientDbStrategy')('membership');
 var UserRepo = require('../lib/UserRepository')(strategy);
 
 describe('Authentication', function () {
