@@ -1,64 +1,75 @@
 /**
  * Created by HyveMynd on 7/20/14.
  */
-var events = require('events');
-var util = require('util');
-var Registration = require('./lib/registration');
-var Authentication = require('./lib/authentication');
-var db = require('revision');
+var Registration = require('./lib/Registration');
+var Authentication = require('./lib/Authentication');
+var UserRepository = require('./lib/UserRepository');
 var assert = require('assert');
 
-var Membership = function(dbName) {
-    var self = this;
-    events.EventEmitter.call(self);
+var Membership = function(strategy, config) {
+    var self = {};
+    var userRepo = new UserRepository(strategy);
+    var registration = new Registration(userRepo);
+    var authentication = new Authentication(userRepo);
 
-    self.findByUserToken = function (token, next) {
-        db.connect({db:dbName}, function (err, db) {
-            assert.ok(err === null, err);
-            db.users.first({authenticationToken: token}, next);
-        });
+    /**
+     * Find a user with the given authentication token
+     * @param token
+     * @returns {*}
+     */
+    self.findByUserToken = function (token) {
+        return userRepo.first({authenticationToken: token});
     };
 
-    self.authenticate = function (email, password, next) {
-        db.connect({db: dbName}, function (err, db) {
-            assert.ok(err === null, err);
-            var auth = new Authentication(db);
-
-            auth.on('authenticated', function (authResult) {
-                self.emit('authenticated', authResult);
-            });
-            auth.on('not-authenticated', function (authResult) {
-                self.emit('authenticated', authResult);
-            });
-
-            auth.authenticate({email: email, password: password}, next);
-        });
+    /**
+     * Authenticate the email and password combination
+     * @param email
+     * @param password
+     * @returns {Promise} A bluebird promise with the user object
+     */
+    self.authenticate = function (email, password) {
+        return authentication.authenticate(email, password);
     };
 
-    self.register = function (email, password, confirm, firstName, lastName, next) {
-        db.connect({db: dbName}, function (err, db) {
-            assert.ok(err === null, err);
-            var reg = new Registration(db);
+    /**
+     * Registers a user with the system
+     * @param email
+     * @param password
+     * @param confirm
+     * @param firstName
+     * @param lastName
+     * @returns {Promise} A bluebird promise containing the created user
+     */
+    self.register = function (email, password, confirm, firstName, lastName) {
+        var args = {email: email,
+            password: password,
+            confirm: confirm,
+            firstName: firstName,
+            lastName: lastName
+        };
+        return registration.register(args);
+    };
 
-            reg.on('registered', function (app) {
-                self.emit('registered', app);
-            });
-            reg.on('not-registered', function (app) {
-                self.emit('not-registered', app);
-            });
+    /**
+     * Sends a verification token to the given email
+     * @param email
+     * @returns {promise} A bluebird promise with user the email was sent to
+     */
+    self.sendVerificationEmail = function (email) {
+        return registration.sendVerificationEmail(email, config);
+    };
 
-            reg.applyForMembership({
-                email: email,
-                password: password,
-                confirm: confirm,
-                firstName: firstName,
-                lastName: lastName
-            }, next);
-        });
+    /**
+     * Validate a token sent through the email verification system
+     * @param email
+     * @param token
+     * @returns {promise} A bluebird promise with the user if found or null.
+     */
+    self.verifyToken = function (email, token) {
+        return registration.verifyToken(email, token);
     };
 
     return self;
 };
 
-util.inherits(Membership, events.EventEmitter);
 module.exports = Membership;
