@@ -53,7 +53,7 @@ var Membership = function(strategy, config) {
     /**
      * Sends a verification token to the given email
      * @param email
-     * @returns {promise} A bluebird promise with user the email was sent to
+     * @returns {promise} A bluebird promise with the user the email was sent to
      */
     self.sendVerificationEmail = function (email) {
         return registration.sendVerificationEmail(email, config);
